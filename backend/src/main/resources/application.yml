@@ -1,0 +1,54 @@
+server:
+  port: 8080
+
+spring:
+  application:
+    name: tour-operator-backend
+  
+  datasource:
+    url: ${SPRING_DATASOURCE_URL:jdbc:postgresql://localhost:5432/tour_operator}
+    username: ${SPRING_DATASOURCE_USERNAME:tour_user}
+    password: ${SPRING_DATASOURCE_PASSWORD:tour_password}
+    driver-class-name: org.postgresql.Driver
+  
+  flyway:
+    enabled: true
+    locations: classpath:db/migration
+    baseline-on-migrate: true
+  
+  jpa:
+    hibernate:
+      ddl-auto: validate
+    show-sql: true
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.PostgreSQLDialect
+        format_sql: true
+  
+  mail:
+    host: smtp.gmail.com
+    port: 587
+    username: ${MAIL_USERNAME:}
+    password: ${MAIL_PASSWORD:}
+    properties:
+      mail:
+        smtp:
+          auth: true
+          starttls:
+            enable: true
+  
+  minio:
+    endpoint: ${SPRING_MINIO_ENDPOINT:http://localhost:9000}
+    access-key: ${SPRING_MINIO_ACCESS_KEY:minio_admin}
+    secret-key: ${SPRING_MINIO_SECRET_KEY:minio_password}
+    bucket-name: tour-images
+
+jwt:
+  secret: ${JWT_SECRET:your-secret-key-for-jwt-tokens-must-be-long-enough}
+  expiration: ${JWT_EXPIRATION:86400000}
+
+logging:
+  level:
+    root: INFO
+    com.touroperator: DEBUG
+    org.springframework.security: DEBUG
