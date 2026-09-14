@@ -2,6 +2,10 @@ package com.touroperator.entity;
 
 import jakarta.persistence.*;
 import lombok.*;
+import org.springframework.data.annotation.CreatedDate;
+import org.springframework.data.annotation.LastModifiedDate;
+import org.springframework.data.jpa.domain.support.AuditingEntityListener;
+
 import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
@@ -14,6 +18,7 @@ import java.util.List;
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
+@EntityListeners(AuditingEntityListener.class)
 public class Tour {
 
     @Id
@@ -39,6 +44,14 @@ public class Tour {
     @Column(nullable = false)
     private LocalDateTime creationDate;
 
+    @CreatedDate
+    @Column(name = "created_at", updatable = false)
+    private LocalDateTime createdAt;
+
+    @LastModifiedDate
+    @Column(name = "updated_at")
+    private LocalDateTime updatedAt;
+
     @OneToMany(mappedBy = "tour", cascade = CascadeType.ALL, orphanRemoval = true)
     @Builder.Default
     private List<PriceParameter> priceParameters = new ArrayList<>();
@@ -54,5 +67,12 @@ public class Tour {
     @PrePersist
     protected void onCreate() {
         creationDate = LocalDateTime.now();
+        createdAt = LocalDateTime.now();
+        updatedAt = LocalDateTime.now();
+    }
+
+    @PreUpdate
+    protected void onUpdate() {
+        updatedAt = LocalDateTime.now();
     }
 }

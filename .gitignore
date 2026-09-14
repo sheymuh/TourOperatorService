@@ -1,14 +1,12 @@
-```
 # Compiled and build artifacts
 *.class
 *.o
 *.obj
-*.exe
+*.out
 *.dll
 *.so
 *.a
-*.out
-target/
+*.exe
 
 # Dependencies
 node_modules/
@@ -17,15 +15,13 @@ venv/
 __pycache__/
 .mypy_cache/
 .pytest_cache/
+target/
 .gradle/
-julia-*/
-zig*/
 
 # Logs and temp files
 *.log
 *.tmp
 *.swp
-*.swo
 
 # Environment
 .env
@@ -45,7 +41,7 @@ coverage/
 htmlcov/
 .coverage
 
-# Compressed files
+# Archives
 *.zip
 *.gz
 *.tar
@@ -64,4 +60,3 @@ htmlcov/
 *.Z
 *.lz
 *.lzo
-```

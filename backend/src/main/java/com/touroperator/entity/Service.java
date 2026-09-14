@@ -2,7 +2,12 @@ package com.touroperator.entity;
 
 import jakarta.persistence.*;
 import lombok.*;
+import org.springframework.data.annotation.CreatedDate;
+import org.springframework.data.annotation.LastModifiedDate;
+import org.springframework.data.jpa.domain.support.AuditingEntityListener;
+
 import java.math.BigDecimal;
+import java.time.LocalDateTime;
 
 @Entity
 @Table(name = "services")
@@ -10,6 +15,7 @@ import java.math.BigDecimal;
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
+@EntityListeners(AuditingEntityListener.class)
 public class Service {
 
     @Id
@@ -28,4 +34,12 @@ public class Service {
 
     @Column(nullable = false)
     private BigDecimal cost;
+
+    @CreatedDate
+    @Column(name = "created_at", updatable = false)
+    private LocalDateTime createdAt;
+
+    @LastModifiedDate
+    @Column(name = "updated_at")
+    private LocalDateTime updatedAt;
 }
